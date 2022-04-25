@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  database:
+    image: mysql:5.7
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: Pass1234
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: Franklin_123
+      MYSQL_DATABASE: bookstore_db
+    networks:
+      - bennet
+
+  myapp:
+    image: benscompany/bookstoreapi:latest
+    container_name: myapp
+    restart: always
+    depends_on:
+      - database
+    ports:
+      - "80:80"
+    networks:
+      - bennet
+
+networks:
+  bennet:
